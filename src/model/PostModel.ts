@@ -1,5 +1,6 @@
 export interface PostModel {
     id: Date,
     title: string,
-    message: string
+    message: string,
+    email: string
 }

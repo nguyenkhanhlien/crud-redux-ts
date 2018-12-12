@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-import PostForm from './component/PostForm';
-import AllPost from './component/AllPost';
+import AddPostContainer from './container/AddPost'
+import AllPostContainer from './container/AllPost'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <PostForm />
-        <AllPost />
+        <AddPostContainer />
+        {/* <AllPostContainer /> */}
       </div>
     );
   }

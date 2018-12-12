@@ -4,7 +4,8 @@ import { State } from "../reducer/PostReducer";
 
 const mapStateToProps = (state: State) => {
     return {
-        posts: state.post
+        post: state.post
     }
 }
-export default connect(mapStateToProps)(AllPost);
+const AllPostContainer = connect(mapStateToProps, null)(AllPost);
+export default AllPostContainer

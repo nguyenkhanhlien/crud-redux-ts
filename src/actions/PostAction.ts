@@ -10,15 +10,11 @@ export interface addPostAction {
     }
 }
 
-export function addPost(title: string, message: string):addPostAction {
+export function addPost(data: PostModel):addPostAction {
     return {
         type: ActionTypes.ADD_POST,
         payload: {
-            post: {
-                id: new Date(),
-                title: title,
-                message: message
-            }
+            post: data
         }
     }
 }
