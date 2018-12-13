@@ -18,8 +18,17 @@
   color: white;
 }
 
+.DayPickerInput input {
+  background: bisque;
+  border-bottom-color: aquamarine;
+  border-bottom-left-radius: 100px;
+}
+
 .App-link {
   color: #61dafb;
+}
+a {
+  background-image: url(./images/icon.png)
 }
 
 li {

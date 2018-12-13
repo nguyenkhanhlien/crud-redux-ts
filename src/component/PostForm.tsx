@@ -5,6 +5,7 @@ import { PostModel } from '../model/PostModel';
 import ReminderComponent from './ReminderComponent'
 import { getUser } from '../services/ApiServices';
 import { map } from 'lodash'
+import moment from 'moment'
 
 
 interface PostFormState {
@@ -15,7 +16,9 @@ interface PostFormState {
     isValidTitle: boolean,
     isValidMessage: boolean,
     listEmail: Array<any>,
-    selectedEmail: string
+    selectedEmail: string,
+    startDate: Date
+    isValidDate: boolean
 }
 
 interface PostFormProps {
@@ -92,7 +95,9 @@ class PostForm extends Component<PostFormProps, PostFormState> {
             isValidTitle: false,
             isValidMessage: false,
             listEmail: [],
-            selectedEmail: ''
+            selectedEmail: '',
+            startDate: new Date(),
+            isValidDate: false
         }
     }
 
@@ -155,7 +160,9 @@ class PostForm extends Component<PostFormProps, PostFormState> {
     }
 
     handleDisplayTime(event: any) {
+        if (event.target.value !== '') {
 
+        }
     }
 
     checkIsDisableButton() {
@@ -168,6 +175,30 @@ class PostForm extends Component<PostFormProps, PostFormState> {
     onSelectedEmail(email: string) {
         this.setState({
             selectedEmail: email
+        })
+    }
+    handleDayChange(selectedDay: Date, modifiers: Object, dayPickerInput: DayPickerInput) {
+        console.log(1, selectedDay)
+        let day = moment("12-25-1995", "DD-MM-YYYY");
+        console.log( 'second', moment().second())
+        console.log( 'minut', moment().minutes())
+        console.log( 'hours', moment().hours())
+        const start = moment('2018-12-08 09:42');
+        const remainder = 30 - (start.minute() % 30);
+         
+        const dateTime = moment(start).add(remainder, "minutes").format("DD.MM.YYYY, h:mm:ss a");
+        
+        console.log('dateTime: ', dateTime);
+        console.log('typeof: ', typeof(dateTime))
+        if (selectedDay !== undefined) {
+            this.setState({
+                startDate: selectedDay,
+                isValidDate: false
+            })
+            return
+        }
+        this.setState({
+            isValidDate: true
         })
     }
 
@@ -185,14 +216,17 @@ class PostForm extends Component<PostFormProps, PostFormState> {
                         <label>Start:</label>
                         <DayPickerInput
                             format='DD/MM/YYYY'
+                            onDayChange={(day, modifiers, dayPickerInput) => this.handleDayChange(day, modifiers, dayPickerInput)}
                         />
+                        {this.state.isValidDate ? <span>Error</span> : null}
                         <div className="start-time">
                             <input type="text" onChange={(event) => this.handleDisplayTime(event)} />
                         </div>
                     </div>
                     <button className={this.checkIsDisableButton() ? 'is-hidden' : 'display'}>Post</button>
+                    <a href="#">Back</a>
                 </form>
-                <ReminderComponent listEmail={this.state.listEmail} onChangeMail = {this.onSelectedEmail.bind(this)}/>
+                <ReminderComponent listEmail={this.state.listEmail} onChangeMail={this.onSelectedEmail.bind(this)} />
             </div>
         )
     }
